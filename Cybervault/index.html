@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ══ PRIMARY SEO ══ -->
+<title>CyberVault Pro — AI Tools, Cybersecurity & Digital Security Hub</title>
+<meta name="description" content="CyberVault: Discover 500+ AI tools, check password strength, detect phishing URLs, access 106+ free cybersecurity courses, and stay updated with live threat intelligence.">
+<meta name="keywords" content="cybersecurity, AI tools, password checker, phishing detector, free courses, cyber security, ethical hacking, machine learning tools, digital security">
+<meta name="author" content="CyberVault">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://cybervault.app/">
+
+<!-- ══ OPEN GRAPH (Social Sharing) ══ -->
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://cybervault.app/">
+<meta property="og:title"       content="CyberVault Pro — AI Tools & Cybersecurity Hub">
+<meta property="og:description" content="500+ AI tools, password analyzer, phishing detector, 106+ free courses & live cyber threat intelligence. Your ultimate digital security command center.">
+<meta property="og:image"       content="https://cybervault.app/assets/og-image.png">
+<meta property="og:site_name"   content="CyberVault">
+
+<!-- ══ TWITTER CARD ══ -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:site"        content="@cybervault">
+<meta name="twitter:title"       content="CyberVault Pro — AI Tools & Cybersecurity Hub">
+<meta name="twitter:description" content="500+ AI tools, password strength analyzer, phishing detector, free courses & live threat intelligence.">
+<meta name="twitter:image"       content="https://cybervault.app/assets/og-image.png">
+
+<!-- ══ THEME & FAVICON ══ -->
+<meta name="theme-color" content="#00d4ff">
+<meta name="msapplication-TileColor" content="#020817">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⬡</text></svg>">
+
+<!-- ══ STRUCTURED DATA ══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "CyberVault Pro",
+  "description": "AI tools discovery, cybersecurity toolkit, free courses and live threat intelligence.",
+  "url": "https://cybervault.app",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "featureList": ["500+ AI Tools", "Password Analyzer", "Phishing Detector", "106+ Free Courses", "Live Threat Intelligence"]
+}
+</script>
+
+<!-- ══ FONTS ══ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- ══ STYLES ══ -->
+<link rel="stylesheet" href="css/style.css">
+
+<!-- ══ FIREBASE SDK ══ -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Matrix rain -->
+<canvas id="matrixCanvas"></canvas>
+
+<!-- Particles -->
+<div class="particles" id="particles"></div>
+
+<!-- Toast notification -->
+<div class="cv-toast" id="cvToast"></div>
+
+<!-- ══════════ NAV ══════════ -->
+<nav id="mainNav">
+  <div class="nav-logo glitch" onclick="navigate('home')">
+    <span class="logo-hex">⬡</span>CYBERVAULT
+  </div>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#" class="active" data-page="home"><span class="nav-icon">⌂</span>HOME</a></li>
+    <li><a href="#" data-page="finder"><span class="nav-icon">🤖</span>AI FINDER</a></li>
+    <li><a href="#" data-page="tools"><span class="nav-icon">⚡</span>TOOLS</a></li>
+    <li><a href="#" data-page="tips"><span class="nav-icon">🛡️</span>TIPS</a></li>
+    <li><a href="#" data-page="courses"><span class="nav-icon">🎓</span>COURSES</a></li>
+    <li><a href="#" data-page="news"><span class="nav-icon">📡</span>NEWS</a></li>
+    <li><a href="#" data-page="dashboard"><span class="nav-icon">👤</span>DASHBOARD</a></li>
+    <li><a href="#" data-page="analytics"><span class="nav-icon">📊</span>ANALYTICS</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      <span class="status-text">SECURE</span>
+    </div>
+    <div class="nav-user" id="navUser" onclick="navigate('dashboard')">
+      <div class="nav-user-ava" id="navUserAva">U</div>
+      <span class="nav-user-name" id="navUserName">User</span>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══════════ HOME PAGE ══════════ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+    <div class="hero-badge"><span class="badge-dot"></span>SYSTEM ONLINE · v3.0 · AUTHENTICATED</div>
+    <h1 class="hero-title">
+      <span class="title-top">CYBER</span>
+      <span class="title-main">VAULT</span>
+      <span class="title-sub">DIGITAL SECURITY COMMAND CENTER</span>
+    </h1>
+    <p class="hero-desc">Your ultimate command center for cybersecurity tools, 500+ AI tool discovery, free courses & live threat intelligence.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="navigate('tools')"><span class="btn-icon">⚡</span> Launch Tools<span class="btn-shine"></span></button>
+      <button class="btn-secondary" onclick="navigate('finder')"><span class="btn-icon">🤖</span> Explore 500+ AI</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card"><div class="stat-num" id="c1">0</div><div class="stat-label">AI TOOLS</div><div class="stat-bar"></div></div>
+      <div class="stat-card"><div class="stat-num" id="c2">0</div><div class="stat-label">CATEGORIES</div><div class="stat-bar"></div></div>
+      <div class="stat-card"><div class="stat-num" id="c3">0</div><div class="stat-label">FREE TOOLS</div><div class="stat-bar"></div></div>
+      <div class="stat-card"><div class="stat-num" id="c4">0</div><div class="stat-label">CYBER TIPS</div><div class="stat-bar"></div></div>
+    </div>
+  </section>
+
+  <section class="home-features">
+    <div class="section-header">
+      <div class="section-tag">ARSENAL</div>
+      <h2 class="section-title">Your Digital Weapons</h2>
+      <p class="section-sub">Everything you need to dominate the digital battlefield</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card feat-large reveal" onclick="navigate('finder')">
+        <div class="feat-glow"></div><div class="feat-num">01</div>
+        <div class="feat-icon">🤖</div>
+        <h3 class="feat-title">AI TOOLS FINDER</h3>
+        <p class="feat-desc">500+ curated AI tools across 28 categories. Free, paid & everything in between. Bookmark your favourites.</p>
+        <div class="feat-tags"><span class="ftag">500+ Tools</span><span class="ftag">28 Categories</span><span class="ftag">Bookmarks</span></div>
+        <div class="feat-arrow">→</div>
+      </div>
+      <div class="feat-card reveal" onclick="navigate('tools')">
+        <div class="feat-glow"></div><div class="feat-num">02</div>
+        <div class="feat-icon">🔐</div>
+        <h3 class="feat-title">PASSWORD ANALYZER</h3>
+        <p class="feat-desc">Real-time strength scoring with entropy analysis, crack time & history tracking.</p>
+        <div class="feat-arrow">→</div>
+      </div>
+      <div class="feat-card reveal" onclick="navigate('tools')">
+        <div class="feat-glow"></div><div class="feat-num">03</div>
+        <div class="feat-icon">🕵️</div>
+        <h3 class="feat-title">PHISHING DETECTOR</h3>
+        <p class="feat-desc">15 detection signatures scan any URL for malicious patterns. All scans saved to your history.</p>
+        <div class="feat-arrow">→</div>
+      </div>
+      <div class="feat-card reveal" onclick="navigate('courses')">
+        <div class="feat-glow"></div><div class="feat-num">04</div>
+        <div class="feat-icon">🎓</div>
+        <h3 class="feat-title">FREE COURSES</h3>
+        <p class="feat-desc">106+ free courses from Google, Harvard, Cisco, IBM & more. Cybersecurity, AI, Web Dev & Cloud.</p>
+        <div class="feat-arrow">→</div>
+      </div>
+      <div class="feat-card reveal" onclick="navigate('news')">
+        <div class="feat-glow"></div><div class="feat-num">05</div>
+        <div class="feat-icon">📡</div>
+        <h3 class="feat-title">CYBER NEWS</h3>
+        <p class="feat-desc">Live threat feed, breaking breaches, CVEs & security research from top sources worldwide.</p>
+        <div class="feat-arrow">→</div>
+      </div>
+      <div class="feat-card reveal" onclick="navigate('analytics')">
+        <div class="feat-glow"></div><div class="feat-num">06</div>
+        <div class="feat-icon">📊</div>
+        <h3 class="feat-title">ANALYTICS DASHBOARD</h3>
+        <p class="feat-desc">Track your activity, scan history, bookmarks & security score. Full data visualization.</p>
+        <div class="feat-arrow">→</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>⚡ ChatGPT</span><span>🎨 Midjourney</span><span>💻 GitHub Copilot</span><span>🎬 Runway</span><span>🎵 Suno AI</span><span>📊 Notion AI</span><span>🔐 Password Security</span><span>🛡️ Zero Trust</span><span>🤖 Claude</span><span>⚡ Cursor AI</span><span>🎨 Canva AI</span><span>📝 Grammarly</span><span>🔍 Perplexity</span><span>🎯 Gamma AI</span><span>🌐 DeepL</span>
+      <span>⚡ ChatGPT</span><span>🎨 Midjourney</span><span>💻 GitHub Copilot</span><span>🎬 Runway</span><span>🎵 Suno AI</span><span>📊 Notion AI</span><span>🔐 Password Security</span><span>🛡️ Zero Trust</span><span>🤖 Claude</span><span>⚡ Cursor AI</span><span>🎨 Canva AI</span><span>📝 Grammarly</span><span>🔍 Perplexity</span><span>🎯 Gamma AI</span><span>🌐 DeepL</span>
+    </div>
+  </div>
+  <footer class="main-footer"><div class="footer-logo">⬡ CYBERVAULT PRO</div><p class="footer-text">Built with 🔥 · Stay Secure · Stay Smart</p><p class="footer-copy">© 2024 CyberVault · All Rights Reserved</p></footer>
+</div>
+
+<!-- ══════════ AI FINDER PAGE ══════════ -->
+<div class="page" id="page-finder">
+  <div class="finder-hero">
+    <div class="section-tag">AI FINDER</div>
+    <h2 class="section-title">500+ AI Tools Database</h2>
+    <p class="section-sub">Every AI tool you need — free, freemium & paid. Bookmark favourites to your dashboard.</p>
+  </div>
+  <div class="finder-controls">
+    <div class="search-wrap">
+      <span class="search-ico">⌕</span>
+      <input type="text" id="aiSearch" class="finder-search" placeholder="Search 500+ tools..." oninput="filterAI()">
+      <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display:none">✕</button>
+    </div>
+    <div class="price-filters" id="priceFilters">
+      <button class="price-btn active" data-price="all"      onclick="setPriceFilter(this,'all')">All</button>
+      <button class="price-btn"        data-price="free"     onclick="setPriceFilter(this,'free')">🟢 Free</button>
+      <button class="price-btn"        data-price="freemium" onclick="setPriceFilter(this,'freemium')">🟡 Freemium</button>
+      <button class="price-btn"        data-price="paid"     onclick="setPriceFilter(this,'paid')">🔴 Paid</button>
+      <button class="price-btn"        data-price="student"  onclick="setPriceFilter(this,'student')">🎓 Student</button>
+    </div>
+  </div>
+  <div class="cat-scroll" id="catScroll"></div>
+  <div class="finder-meta" id="finderMeta"></div>
+  <div class="finder-body" id="finderBody"></div>
+  <footer class="main-footer"><div class="footer-logo">⬡ CYBERVAULT PRO</div><p class="footer-text">Built with 🔥 · Stay Secure · Stay Smart</p></footer>
+</div>
+
+<!-- ══════════ TOOLS PAGE ══════════ -->
+<div class="page" id="page-tools">
+  <div class="tools-hero">
+    <div class="section-tag">SECURITY TOOLS</div>
+    <h2 class="section-title">Cyber Security Toolkit</h2>
+    <p class="section-sub">Professional-grade tools — completely free. All scans saved to your analytics.</p>
+  </div>
+  <div class="tools-wrap">
+    <!-- Password -->
+    <div class="tool-module reveal">
+      <div class="module-header">
+        <span class="module-icon">🔐</span>
+        <div><h3 class="module-title">Password Strength Analyzer</h3><p class="module-sub">Real-time · Entropy · Crack time · Auto-generate</p></div>
+        <div class="module-badge">ACTIVE</div>
+      </div>
+      <div class="pw-input-row">
+        <div class="pw-input-wrap">
+          <input type="password" class="cyber-input" id="pwInput" placeholder="Enter password to analyze..." oninput="checkPassword()" autocomplete="new-password">
+          <button class="pw-toggle" id="pwToggle" onclick="togglePw()">👁</button>
+        </div>
+        <button class="cyber-btn" onclick="generatePw()">⚡ GENERATE</button>
+      </div>
+      <div class="strength-section">
+        <div class="strength-bars" id="strengthBars">
+          <div class="s-bar" id="sb1"></div><div class="s-bar" id="sb2"></div>
+          <div class="s-bar" id="sb3"></div><div class="s-bar" id="sb4"></div><div class="s-bar" id="sb5"></div>
+        </div>
+        <div class="strength-info">
+          <div><div class="strength-label" id="strengthLabel">WAITING FOR INPUT</div><div class="strength-hint" id="strengthHint">Start typing to analyze</div></div>
+          <div class="entropy-badge" id="entropyBadge"></div>
+        </div>
+      </div>
+      <div class="checks-grid" id="checksGrid">
+        <div class="chk" id="ck-len"><span class="chk-ico">○</span>8+ characters</div>
+        <div class="chk" id="ck-upper"><span class="chk-ico">○</span>Uppercase (A-Z)</div>
+        <div class="chk" id="ck-lower"><span class="chk-ico">○</span>Lowercase (a-z)</div>
+        <div class="chk" id="ck-num"><span class="chk-ico">○</span>Numbers (0-9)</div>
+        <div class="chk" id="ck-sym"><span class="chk-ico">○</span>Special symbols</div>
+        <div class="chk" id="ck-len2"><span class="chk-ico">○</span>16+ characters</div>
+        <div class="chk" id="ck-nodict"><span class="chk-ico">○</span>No common words</div>
+        <div class="chk" id="ck-norep"><span class="chk-ico">○</span>No repeated chars</div>
+      </div>
+      <div class="crack-time" id="crackTime"></div>
+    </div>
+
+    <!-- Phishing -->
+    <div class="tool-module reveal">
+      <div class="module-header">
+        <span class="module-icon">🕵️</span>
+        <div><h3 class="module-title">Phishing URL Detector</h3><p class="module-sub">15 signatures · Pattern analysis · Saved to history</p></div>
+        <div class="module-badge">ACTIVE</div>
+      </div>
+      <div class="url-input-row">
+        <input type="text" class="cyber-input" id="urlInput" placeholder="Paste suspicious URL here..." autocomplete="off" style="padding-left:16px">
+        <button class="cyber-btn" onclick="checkURL()">🔍 SCAN</button>
+      </div>
+      <div id="urlResult"></div>
+      <div id="urlDetails"></div>
+      <div class="sig-section"><div class="sig-title">DETECTION ENGINE — 15 ACTIVE SIGNATURES</div><div class="sig-grid" id="sigGrid"></div></div>
+    </div>
+
+    <!-- Text Encoder -->
+    <div class="tool-module reveal">
+      <div class="module-header">
+        <span class="module-icon">🔑</span>
+        <div><h3 class="module-title">Text Encoder / Hash Tool</h3><p class="module-sub">Base64 · ROT13 · HEX · Binary · Reverse</p></div>
+        <div class="module-badge">ACTIVE</div>
+      </div>
+      <div class="url-input-row">
+        <input type="text" class="cyber-input" id="hashInput" placeholder="Enter text to encode..." style="padding-left:16px">
+        <button class="cyber-btn" onclick="encodeText()">ENCODE</button>
+      </div>
+      <div id="hashResult"></div>
+    </div>
+  </div>
+  <footer class="main-footer"><div class="footer-logo">⬡ CYBERVAULT PRO</div><p class="footer-text">Built with 🔥 · Stay Secure · Stay Smart</p></footer>
+</div>
+
+<!-- ══════════ TIPS PAGE ══════════ -->
+<div class="page" id="page-tips">
+  <div class="tips-hero"><div class="section-tag">KNOWLEDGE BASE</div><h2 class="section-title">Cyber Security Tips</h2><p class="section-sub">From beginner basics to advanced threat hunting — protect yourself in the digital world.</p></div>
+  <div class="tips-wrap"><div class="level-bar" id="levelBar"></div><div class="tips-grid" id="tipsGrid"></div></div>
+  <footer class="main-footer"><div class="footer-logo">⬡ CYBERVAULT PRO</div><p class="footer-text">Built with 🔥 · Stay Secure · Stay Smart</p></footer>
+</div>
+
+<!-- ══════════ COURSES PAGE ══════════ -->
+<div class="page" id="page-courses">
+  <div class="courses-hero"><div class="section-tag">FREE EDUCATION</div><h2 class="section-title">Free Courses & Learning</h2><p class="section-sub">106+ free courses from Google, Harvard, Cisco, IBM & more. All 100% free or audit-free.</p></div>
+  <div class="courses-controls">
+    <div class="search-wrap"><span class="search-ico">⌕</span><input type="text" id="courseSearch" class="finder-search" placeholder="Search courses, topics, platforms..." oninput="filterCourses()"></div>
+    <div class="price-filters" id="courseTopicFilters"></div>
+  </div>
+  <div class="finder-meta" id="coursesMeta"></div>
+  <div class="courses-body" id="coursesBody"></div>
+  <footer class="main-footer"><div class="footer-logo">⬡ CYBERVAULT PRO</div><p class="footer-text">Built with 🔥 · Stay Secure · Stay Smart</p></footer>
+</div>
+
+<!-- ══════════ NEWS PAGE ══════════ -->
+<div class="page" id="page-news">
+  <div class="news-hero"><div class="section-tag">LIVE INTELLIGENCE</div><h2 class="section-title">Cyber Security News</h2><p class="section-sub">Stay updated with the latest threats, breaches, vulnerabilities & research from top sources.</p></div>
+  <div class="news-controls"><div class="news-cat-bar" id="newsCatBar"></div></div>
+  <div class="news-layout" id="newsLayout"></div>
+  <footer class="main-footer"><div class="footer-logo">⬡ CYBERVAULT PRO</div><p class="footer-text">Built with 🔥 · Stay Secure · Stay Smart</p></footer>
+</div>
+
+<!-- ══════════ DASHBOARD PAGE ══════════ -->
+<div class="page" id="page-dashboard">
+  <div class="dashboard-hero"><div class="section-tag">USER DASHBOARD</div><h2 class="section-title">Welcome Back</h2><p class="section-sub">Your personal command center — activity, bookmarks, and quick access to all tools.</p></div>
+  <div class="dashboard-wrap"><div id="dashboardBody"></div></div>
+  <footer class="main-footer"><div class="footer-logo">⬡ CYBERVAULT PRO</div><p class="footer-text">Built with 🔥 · Stay Secure · Stay Smart</p></footer>
+</div>
+
+<!-- ══════════ ANALYTICS PAGE ══════════ -->
+<div class="page" id="page-analytics">
+  <div class="analytics-hero"><div class="section-tag">ANALYTICS</div><h2 class="section-title">Your Activity Dashboard</h2><p class="section-sub">Full visibility into your scans, bookmarks, security score & activity over time.</p></div>
+  <div class="analytics-wrap"><div id="analyticsBody"></div></div>
+  <footer class="main-footer"><div class="footer-logo">⬡ CYBERVAULT PRO</div><p class="footer-text">Built with 🔥 · Stay Secure · Stay Smart</p></footer>
+</div>
+
+<!-- ══ SCRIPTS ══ -->
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  // Auth guard — redirect to login if not authenticated
+  if (!requireAuth()) { /* redirect happens inside */ }
+  else { updateNavUser(); }
+</script>
+<script src="js/main.js"></script>
+<script src="js/ai-tools.js"></script>
+<script src="js/password.js"></script>
+<script src="js/phishing.js"></script>
+<script src="js/tips.js"></script>
+<script src="js/courses.js"></script>
+<script src="js/news.js"></script>
+<script src="js/analytics.js"></script>
+</body>
+</html>
